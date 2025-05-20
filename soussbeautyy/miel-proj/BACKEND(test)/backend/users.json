@@ -1,0 +1,22 @@
+[
+  {
+    "username": "JohnDoe",
+    "email": "johndoe@example.com",
+    "password": "hashed_password_1"
+  },
+  {
+    "username": "JaneDoe",
+    "email": "janedoe@example.com",
+    "password": "hashed_password_2"
+  },
+  {
+    "username": "ygug",
+    "email": "gutfuyt@gmail.com",
+    "password": "nnnnnnnn"
+  },
+  {
+    "username": "bbb",
+    "email": "bbb@gmail.com",
+    "password": "bbbbbbbb"
+  }
+]
