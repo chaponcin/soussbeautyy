@@ -23,14 +23,14 @@ function Header() {
   return (
 
 <header
-  className="footer-bg fixed left-0 z-50 px-6  w-screen  bg-no-repeat bg-contain"
+  className="footer-bg fixed left-0 z-50 px-6 w-screen bg-no-repeat bg-contain"
   style={{
-  backgroundColor: "#DDBF78"
+
 
 
   }}
-
 >
+
 
 
 

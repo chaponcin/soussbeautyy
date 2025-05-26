@@ -5,7 +5,11 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  background-color: black;
+background: linear-gradient(135deg, #fada5e, #d4af37, #b8860b);
+
+
+
+
 }
 
 
