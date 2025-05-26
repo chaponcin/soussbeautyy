@@ -1,11 +1,11 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Gabriela', serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.856);
-  background-color: #fafafa;
+  background-color: #D1B840;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -45,7 +45,6 @@ h1 {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #fff6bb;
   }
 
 }

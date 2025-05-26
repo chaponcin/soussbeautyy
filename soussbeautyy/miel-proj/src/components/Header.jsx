@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import Nature from '../assets/logo.png';
+
 
 function Header() {
   const { isLoggedIn, logout } = useAuth();
@@ -17,7 +19,11 @@ function Header() {
 
   return (
 
-<header className="footer-bg fixed left-0  z-50 px-6   bg-no-repeat top-[-40px]  w-screen bg-contain h-[135px]">
+<header
+  className="footer-bg fixed left-0 z-50 px-6 bg-no-repeat top-[-40px] w-screen bg-contain h-[135px]"
+  style={{ background: 'linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)' }}
+>
+
 
 
       <div className="flex justify-between items-start">
@@ -49,17 +55,22 @@ function Header() {
 
           <Link to="/" className="text-black">Home</Link>
           <Link to="/Boutique" className="text-black">Boutique</Link>
-          <Link to="/quisommes-nous" className="text-black">Qui sommes-nous</Link>
-          <Link to="/recettes" className="text-black">Nos recettes</Link>
+    
+   
           <Link to="/Contact" className="text-black">Contact</Link>
         </nav>
+
+<div className="flex flex-col items-center">
+  <img src={Nature} alt="Nature" className="h-20 mb-1" />
+
+</div>
 
 
         {/* Buttons (Connexion, Inscription, Panier) */}
         <nav className="hidden md:flex items-start space-x-2 py-12">
           <Link to="/pannier" className="mt-[-10px]">
 
-            <img src="./src/assets/pannier.svg" alt="Panier" className="h-8" />
+            <img src="./src/assets/chariot.svg" alt="Panier" className="h-8" />
           </Link>
 
           {!isLoggedIn ? (
@@ -95,8 +106,8 @@ function Header() {
           </Link>
           {!isLoggedIn ? (
             <>
-              <Link to="/register" className="text-white bg-black hover:bg-green-900 font-bold px-2 py-1 rounded-lg transition">Inscription</Link>
-              <Link to="/login" className="text-white bg-black hover:bg-green-900 font-bold px-2 py-1 rounded-lg transition">Connexion</Link>
+              <Link to="/register" className="text-white font-bold px-2 py-1  transition">Inscription</Link>
+              <Link to="/login" className="text-white font-bold px-2 py-1  transition">Connexion</Link>
             </>
           ) : (
             <>

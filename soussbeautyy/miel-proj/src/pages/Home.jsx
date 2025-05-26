@@ -1,118 +1,90 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import heroBackground from '../assets/appi.jpg';
-import aboutBackground from '../assets/app.png';
-import productsBackground from '../assets/photo3.jpg';
-import contactBackground from '../assets/appi.jpg';
+import React, { useRef, useState } from 'react';
+import videoFile from '../assets/video.mp4';
 
-const sectionVariants = {
-  hidden: (i) => ({
-    opacity: 0,
-    x: i % 2 === 0 ? -100 : 100,
-  }),
-  visible: (i) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay: i * 0.2,
-      duration: 1.5,
-      ease: 'easeOut',
-    },
-  }),
-};
+function Home() {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
-const Section = ({ children, background, custom }) => (
-  <motion.section
-    className="relative flex flex-col items-center justify-center text-center p-8 overflow-hidden my-4 min-h-screen rounded-xl"
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    custom={custom}
-    variants={sectionVariants}
-  >
-    {/* Image de fond */}
-    <div
-      className="absolute top-0 left-0 w-full h-full bg-cover bg-center z-0"
-      style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-    />
-    
-    {/* Dégradé pour fondus doux sur les bords */}
-<div className="absolute top-0 left-0 w-full h-full z-0 bg-black/30 pointer-events-none" />
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
 
-    {/* Contenu */}
-    <div className="z-10 max-w-4xl">
-      {children}
-    </div>
-  </motion.section>
-);
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
 
-const Home = () => {
   return (
-    <div className="flex flex-col rounded-t-2xl overflow-hidden">
-      <Section background={heroBackground} custom={0}>
-        <h1 className="text-5xl font-bold mb-4 text-yellow-400 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)]">
-          Bienvenue sur Notre Site
-        </h1>
-        <p className="text-lg text-white drop-shadow-[1px_1px_3px_rgba(0,0,0,0.7)]">
-          Goûtez à l’authenticité d’un miel local, naturel et respectueux des abeilles.
-        </p>
-      </Section>
+    <div className="flex flex-col items-center justify-center min-h-screen text-white bg-transparent">
 
-      <Section background={aboutBackground} custom={1}>
-        <h2 className="text-4xl font-semibold mb-6 text-white drop-shadow">À propos de nous</h2>
-        <p className="text-white text-lg">
-          Nous pratiquons une apiculture raisonnée, sans pesticides, sans nourrissement artificiel, pour préserver la santé des abeilles et la qualité du miel.
-        </p>
-      </Section>
-
-      <Section background={productsBackground} custom={2}>
-        <h2 className="text-4xl font-semibold mb-6 text-white drop-shadow">Notre Produit</h2>
-        <p className="text-white text-lg">
-          Un miel local, issu d’une apiculture douce, à savourer au quotidien.
-        </p>
-      </Section>
-
-      <motion.section
-        className="relative flex flex-col md:flex-row items-center justify-center gap-8 text-left p-8 overflow-hidden my-8 min-h-screen rounded-xl"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        custom={3}
-        variants={sectionVariants}
-      >
-        {/* Image visible à gauche */}
-        <motion.div
-          className="w-full md:w-1/2 h-64 md:h-[500px] bg-cover bg-center rounded-xl shadow-lg"
-          style={{
-            backgroundImage: `url(${contactBackground})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-            backgroundRepeat: 'no-repeat',
-          }}
-          initial={{ opacity: 0, x: 100 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: 'easeOut' }}
+      {/* Video Container */}
+      <div className="relative w-full max-w-[600px] overflow-hidden">
+        <video
+          ref={videoRef}
+          src={videoFile}
+          autoPlay
+          loop
+          muted={isMuted}
+          playsInline
+          controls={false}
+          className="w-full"
+          onContextMenu={(e) => e.preventDefault()} // disable right-click
         />
 
-        {/* Texte à droite */}
-        <motion.div
-          className="w-full md:w-1/2 z-10 md:pl-6 mt-6 md:mt-0"
-          initial={{ opacity: 0, x: 100 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: 'easeOut' }}
-        >
-          <h2 className="text-4xl font-semibold mb-6 text-black drop-shadow">Contactez-nous</h2>
-          <p className="text-black text-lg mb-4">
-            Une question ? Nous sommes toujours ravis de vous lire.
-          </p>
-          <button className="bg-black text-white hover:bg-yellow-600 hover:text-white font-bold py-3 px-6 rounded-full transition duration-300">
-            <Link to="/contact">Nous Contacter</Link>
+        {/* Transparent Controls (no background) */}
+        <div className="absolute bottom-3 left-3 flex space-x-3">
+          {/* Play / Pause */}
+          <button
+            onClick={togglePlay}
+            className="text-white hover:text-green-400 transition"
+            aria-label="Toggle Play"
+          >
+            {isPlaying ? (
+              // Pause Icon
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6" />
+              </svg>
+            ) : (
+              // Play Icon
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-6.518-3.755A1 1 0 007 8.236v7.528a1 1 0 001.234.97l6.518-1.755A1 1 0 0016 13.06V10.94a1 1 0 00-1.248-.772z" />
+              </svg>
+            )}
           </button>
-        </motion.div>
-      </motion.section>
+
+          {/* Mute / Unmute */}
+          <button
+            onClick={toggleMute}
+            className="text-white hover:text-yellow-400 transition"
+            aria-label="Toggle Mute"
+          >
+            {isMuted ? (
+              // Muted Icon
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9L5 13H2v-2h3l4-4v8l4-4m0 0L19 19m-6-6l6 6" />
+              </svg>
+            ) : (
+              // Unmuted Icon
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M16.95 7.05a6 6 0 010 8.48" />
+              </svg>
+            )}
+          </button>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default Home;

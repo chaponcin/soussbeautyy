@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useCart } from "../contexts/CartContext";
 import { useState } from "react";
-import pot250g from "../assets/potsoleil.jpeg";
 
 function Pannier() {
   const { cartItem, clearCart, updateQuantity } = useCart();
@@ -42,11 +41,7 @@ function Pannier() {
             </button>
 
             <div className="flex gap-4 items-center">
-              <img
-                src={pot250g}
-                alt="Pot de miel"
-                className="w-48 h-48 object-cover rounded-lg"
-              />
+   
               <div>
                 <p className="text-lg font-semibold text-[#808000]">8,00 €</p>
                 <p>Miel artisanal 250g</p>
