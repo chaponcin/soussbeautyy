@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import Nature from '../assets/logo.png';
+import goldBackground from '../assets/gold.png'
+import logo3 from '../assets/logo3.png';
+
+
 
 
 function Header() {
@@ -20,18 +23,19 @@ function Header() {
   return (
 
 <header
-  className="footer-bg fixed left-0 z-50 px-6 bg-no-repeat top-[-40px] w-screen bg-contain h-[135px]"
-  style={{ background: 'linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)' }}
+  className="footer-bg fixed left-0 z-50 px-6  w-screen  bg-no-repeat bg-contain"
+  style={{
+  backgroundColor: "#DDBF78"
+
+
+  }}
+
 >
 
 
 
       <div className="flex justify-between items-start">
-        <h1 className="text-xl font-bold text-black mt-9">
-          <Link to="/">
-            <img src="./src/assets/logo.png" className="h-23" alt="Logo" />
-          </Link>
-        </h1>
+ 
 
         {/* Hamburger button (visible on small screens) */}
         <button
@@ -51,24 +55,27 @@ function Header() {
 
         {/* Desktop Navigation */}
 
-        <nav className="hidden md:flex items-start space-x-4 mt-9 font-semibold text-xl">
+        <nav className="hidden md:flex items-start space-x-4 mt-2 font-semibold text-xl text-black">
 
-          <Link to="/" className="text-black">Home</Link>
-          <Link to="/Boutique" className="text-black">Boutique</Link>
+          <Link to="/" className="">Home</Link>
+          <Link to="/Boutique" className="">Boutique</Link>
     
    
-          <Link to="/Contact" className="text-black">Contact</Link>
+          <Link to="/Contact" className="">Contact</Link>
         </nav>
 
 <div className="flex flex-col items-center">
-  <img src={Nature} alt="Nature" className="h-20 mb-1" />
+          <Link to="/">
+<img src={logo3} className="h-16 object-contain" alt="Logo" />
+          </Link>
+
 
 </div>
 
 
         {/* Buttons (Connexion, Inscription, Panier) */}
-        <nav className="hidden md:flex items-start space-x-2 py-12">
-          <Link to="/pannier" className="mt-[-10px]">
+        <nav className="hidden md:flex items-start space-x-2 py-2">
+          <Link to="/pannier" className="mt-2">
 
             <img src="./src/assets/chariot.svg" alt="Panier" className="h-8" />
           </Link>
@@ -76,8 +83,8 @@ function Header() {
           {!isLoggedIn ? (
             <>
 
-              <Link to="/inscription" className="mt-[-10px] text-white bg-black hover:bg-green-900 font-bold px-2 py-1 rounded-lg transition">Inscription</Link>
-              <Link to="/connexion" className="mt-[-10px] text-white bg-black hover:bg-green-900 font-bold px-2 py-1 rounded-lg transition">Connexion</Link>
+              <Link to="/inscription" className="mt-2 text-white bg-black hover:bg-green-900 font-bold px-2 py-1 rounded-lg transition">Inscription</Link>
+              <Link to="/connexion" className="mt-2 text-white bg-black hover:bg-green-900 font-bold px-2 py-1 rounded-lg transition">Connexion</Link>
 
             </>
           ) : (
@@ -96,7 +103,7 @@ function Header() {
 
       {/* Mobile Navigation Menu */}
       {false && (
-        <div className="md:hidden mt-2 flex flex-col space-y-2 bg-[#fafafa]">
+        <div className="md:hidden mt-2 flex flex-col space-y-2">
           <Link to="/" className="text-black">Home</Link>
           <Link to="/Boutique" className="text-black">Boutique</Link>
           <Link to="/quisommesnous" className="text-black">Recettes</Link>
