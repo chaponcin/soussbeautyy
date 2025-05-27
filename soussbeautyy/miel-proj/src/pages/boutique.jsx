@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../contexts/CartContext";
-import { useNavigate } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 
 const products = [
   { id: 1, name: "Huile d'argan", image: "./src/assets/1.jpg" },
@@ -25,65 +25,104 @@ const products = [
 ];
 
 export default function HoneyProduct() {
-  const [activeImage, setActiveImage] = useState(null);
+  const [activeProduct, setActiveProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
-  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    if (activeProduct && quantity > 0) {
+      addToCart(activeProduct, quantity);
+      setActiveProduct(null); // Close modal after adding
+      setQuantity(1); // Reset quantity
+    }
+  };
 
   return (
     <div className="flex flex-col px-6 md:px-16 pt-[100px] items-center">
-      {/* Title */}
       <motion.h1
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.6 }}
         className="text-4xl font-bold text-center text-gray-800 mb-8"
       >
         Découvrez nos produits
       </motion.h1>
 
-      {/* Image Gallery */}
       <div className="flex flex-wrap justify-center gap-6 w-full max-w-7xl">
         {products.map((product) => (
-<motion.div
-  key={product.id}
-  initial={{ opacity: 0, scale: 0.8 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ duration: 0.4 }}
-  className="flex flex-col items-center w-64 md:w-80 cursor-pointer"
-  onClick={() => setActiveImage(product.image)}
->
-  <p className="text-center text-lg font-semibold text-gray-800 mb-2">
-    {product.name}
-  </p>
-  <img
-    src={product.image}
-    alt={product.name}
-    className="w-full h-64 md:h-80 object-cover  transition-transform duration-300 ease-in-out transform hover:scale-105"
-  />
-</motion.div>
-
+          <motion.div
+            key={product.id}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col items-center w-64 md:w-72 border-4 border-yellow-600 p-2 rounded-lg bg-white shadow-lg cursor-pointer"
+            onClick={() => {
+              setActiveProduct(product);
+              setQuantity(1);
+            }}
+          >
+            <p className="text-center text-lg font-semibold text-gray-800 mb-2">
+              {product.name}
+            </p>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-64 object-cover transition-transform duration-300 hover:scale-105"
+              draggable={false}
+            />
+            <p className="mt-2 text-gray-700 text-base font-medium">8 €</p>
+          </motion.div>
         ))}
       </div>
 
-      {/* Image Zoom Modal */}
       <AnimatePresence>
-        {activeImage && (
+        {activeProduct && (
           <motion.div
-            onClick={() => setActiveImage(null)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 cursor-zoom-out"
+            className="fixed inset-0 z-50 bg-black bg-opacity-80 flex justify-center items-center"
+            onClick={() => setActiveProduct(null)}
           >
-            <motion.img
-              src={activeImage}
-              alt="Zoomed"
-              initial={{ scale: 0.5 }}
+            <motion.div
+              initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.5 }}
+              exit={{ scale: 0.8 }}
               transition={{ duration: 0.3 }}
-              className="max-w-full max-h-full"
-            />
+              className="bg-white p-6 rounded-lg max-w-md w-full text-center relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={activeProduct.image}
+                alt={activeProduct.name}
+                className="w-full h-64 object-cover rounded mb-4"
+              />
+              <h2 className="text-xl font-bold mb-2">{activeProduct.name}</h2>
+              <p className="text-lg text-yellow-700 mb-4">8 €</p>
+
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Quantité:
+              </label>
+              <select
+                className="w-24 border border-gray-300 rounded px-2 py-1 mb-4"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+              >
+                {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+
+              <button
+                onClick={handleAddToCart}
+                className="mt-2 flex items-center gap-2 bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+              >
+                <FaShoppingCart />
+                Ajouter au panier
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
