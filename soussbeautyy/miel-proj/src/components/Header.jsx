@@ -23,7 +23,7 @@ function Header() {
     <header
       className="footer-bg fixed left-0 z-50 px-6 w-screen bg-no-repeat bg-contain"
       style={{
-        backgroundImage: `url(${goldBackground})`,
+
       }}
     >
       <div className="flex justify-between items-start">
