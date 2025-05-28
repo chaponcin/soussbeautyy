@@ -85,7 +85,7 @@ function Login() {
 
           <button
             type="submit"
-            className="w-full mt-6 p-2 bg-[#808000] text-white font-semibold rounded-lg hover:bg-blue-600 transition"
+            className="w-full mt-6 p-2 bg-black text-white font-semibold rounded-lg hover:bg-[#808000] transition"
           >
             Se connecter
           </button>

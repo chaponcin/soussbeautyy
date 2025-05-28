@@ -6,7 +6,7 @@ function Hamburger() {
  
  <Link to="/" className="block pt-[90px] text-2xl py-4">Home</Link>
 <Link to="/boutique" className="block text-2xl py-4">Boutique</Link>
-<Link to="/recettes" className="block text-2xl py-4">Recettes</Link>
+
 <Link to="/contact" className="block text-2xl py-4">Contact</Link>
 
 <Link to="/pannier" className="block text-2xl py-4">

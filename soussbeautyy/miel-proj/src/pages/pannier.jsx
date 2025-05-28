@@ -102,7 +102,7 @@ export default function Pannier() {
                   onClick={() => setPaymentMethod("virement")}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
                 >
-                  Payer par virement bancaire
+                  Par virement bancaire
                 </button>
                 <button
                   onClick={() => setPaymentMethod("qr")}
@@ -115,11 +115,10 @@ export default function Pannier() {
               {paymentMethod === "virement" && (
                 <div className="mt-6 bg-gray-100 p-4 rounded">
                   <p><strong>Montant:</strong> {total} €</p>
+                  <p>Bénéficiaire: Souss beautyy</p>
                   <p><strong>IBAN:</strong> {IBAN}</p>
                   <p><strong>Communication:</strong> {structuredMessage}</p>
-                  <p className="text-sm text-gray-600 mt-2">
-                    Merci d'effectuer le virement dès que possible. Votre commande sera enregistrée dès réception du paiement.
-                  </p>
+             
                 </div>
               )}
 
@@ -133,6 +132,10 @@ export default function Pannier() {
                   <p className="mt-2 text-sm text-gray-600">
                     {structuredMessage}
                   </p>
+            
+           
+
+
                 </div>
               )}
             </div>
